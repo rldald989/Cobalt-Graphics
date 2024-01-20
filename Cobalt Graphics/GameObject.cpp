@@ -49,6 +49,8 @@ Cobalt::GameObject::GameObject(std::string name, const char* texFilePath, Filter
     m_ibo.Unbind();
     m_vbo.Unbind();
     m_vao.Unbind();
+
+    m_shader->SetVec2("tex_scale", tex_scale);
 }
 
 // Delete anything that is loaded into memory
