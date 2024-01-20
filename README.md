@@ -59,3 +59,5 @@ int main() {
 };
 ```
 To get some of the required files, go to the <b>Extras</b> branch of this repository.
+For the dependencies, those being: GLFW, GLEW, GLM, and STBImage, can be found in the <b>Dependencies</b> directory.
+Make sure that your ```Additional Dependencies``` under ```Linker->Input``` have the following libraries: ```opengl32.lib```, ```glfw3.lib```, ```glew32.lib```, ```Cobalt Graphics.lib```.
