@@ -16,7 +16,7 @@ int main() {
 
 	std::vector<Cobalt::GameObject*> objects;
 
-  //Make sure to have two folders, one for textures and another named "Shaders"("Shaders will have your vert.glsl and frag.glsl files in them)
+        //Make sure to have two folders, one for textures and another named "Shaders"("Shaders will have your vert.glsl and frag.glsl files in them)
 	objects.push_back(new Cobalt::GameObject("Rune", "Tex/Rune.png", FilteringMode::Nearest));
 
 	cam.SetMatrix(objects, size);
@@ -39,8 +39,6 @@ int main() {
 			objects[i]->Render();
 			objects[i]->Update();
 		}
-
-		//cam.Move(player.obj->GetPosition().x, player.obj->GetPosition().y);
 
 		cam.Update();
 
