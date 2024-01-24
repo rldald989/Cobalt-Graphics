@@ -138,3 +138,67 @@ glm::vec3 Cobalt::GameObject::GetBounds()
 {
     return m_bounds;
 }
+
+Cobalt::ObjectCollection::ObjectCollection(const char* collection_name) : m_collection_name(collection_name)
+{
+}
+
+Cobalt::ObjectCollection::~ObjectCollection()
+{
+    for (int i = 0; i < Size(); i++) {
+        delete m_objects[i];
+    }
+}
+
+void Cobalt::ObjectCollection::Add(GameObject* object)
+{
+    m_objects.push_back(object);
+    std::cout << "Object " << object->GetName() << " added to " << m_collection_name << std::endl;
+}
+
+Cobalt::GameObject* Cobalt::ObjectCollection::GetObject(const char* name)
+{
+    for (int i = 0; i < Size(); i++) {
+        if (m_objects[i]->GetName() == name) {
+            return m_objects[i];
+        }
+    }
+}
+
+Cobalt::GameObject* Cobalt::ObjectCollection::GetObject(int index)
+{
+    return m_objects[index];
+}
+
+void Cobalt::ObjectCollection::RemoveObject(const char* name)
+{
+    for (int i = 0; i < Size(); i++) {
+        if (m_objects[i]->GetName() == name) {
+            m_objects.erase(m_objects.begin() + i);
+        }
+    }
+}
+
+void Cobalt::ObjectCollection::RemoveObject(int index)
+{
+    m_objects.erase(m_objects.begin() + index);
+}
+
+void Cobalt::ObjectCollection::Update()
+{
+    for (int i = 0; i < Size(); i++) {
+        m_objects[i]->Update();
+    }
+}
+
+void Cobalt::ObjectCollection::Render()
+{
+    for (int i = 0; i < Size(); i++) {
+        m_objects[i]->Render();
+    }
+}
+
+int Cobalt::ObjectCollection::Size()
+{
+    return m_objects.size();
+}

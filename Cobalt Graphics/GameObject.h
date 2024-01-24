@@ -6,6 +6,7 @@
 #include "Shader.h"
 #include "Texture.h"
 #include "Buffers.h"
+#include <vector>
 
 struct Vert {
 	glm::vec3 positions;
@@ -78,5 +79,31 @@ namespace Cobalt
 		glm::vec2 tex_scale;
 
 		std::string m_name;
+	};
+
+	class ObjectCollection
+	{
+	public:
+		ObjectCollection(const char* collection_name);
+		~ObjectCollection();
+
+		void Add(GameObject* object);
+
+		int Size();
+
+		GameObject* GetObject(const char* name);
+		GameObject* GetObject(int index);
+
+		void RemoveObject(const char* name);
+		void RemoveObject(int index);
+
+		void Update();
+		void Render();
+
+		friend class Camera;
+
+	private:
+		std::vector<GameObject*> m_objects;
+		const char* m_collection_name;
 	};
 }

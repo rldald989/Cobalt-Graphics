@@ -27,19 +27,18 @@ void Cobalt::Camera::SetMatrix(GameObject* object)
 	object->m_shader->SetMat4("ortho", projection);
 }
 
-void Cobalt::Camera::SetMatrix(std::vector<GameObject*> objects, Vec2 size)
+void Cobalt::Camera::SetMatrix(ObjectCollection* objects, Vec2 size)
 {
 	float aspectRatio = static_cast<float>(size.x) / static_cast<float>(size.y);
 	// The matrix/transformation needed to remove object stretching
 	glm::mat4 projection = glm::ortho(-aspectRatio, aspectRatio, -1.0f, 1.0f, -1.0f, 1.0f);
 
 	// Sets the matrix transformations for multiple objects
-	for (int i = 0; i < objects.size(); i++) 
+	for (int i = 0; i < objects->m_objects.size(); i++)
 	{
-		objects[i]->m_shader->SetMat4("ortho", projection);
+		objects->m_objects[i]->m_shader->SetMat4("ortho", projection);
+		objects->m_objects[i]->m_shader->SetMat4("cam", m_cam);
 	}
-
-	m_objs = objects;
 }
 
 void Cobalt::Camera::Move(float x, float y)
@@ -60,11 +59,6 @@ void Cobalt::Camera::Update()
 	deltaTime = currentFrame - lastFrame;
 	lastFrame = currentFrame;
 
-	// Set the matrix for camera movements
-	for (int i = 0; i < m_objs.size(); i++)
-	{
-		m_objs[i]->m_shader->SetMat4("cam", m_cam);
-	}
 }
 
 void Cobalt::Camera::Controls2D(GLFWwindow* window, float speed)

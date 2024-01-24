@@ -27,7 +27,7 @@ namespace Cobalt
 		void SetMatrix(GameObject* object);
 
 		//Sets the matrix for multiple objects
-		void SetMatrix(std::vector<GameObject*> objects, Vec2 size);
+		void SetMatrix(ObjectCollection* objects, Vec2 size);
 
 		void Move(float x, float y);
 
