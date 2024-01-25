@@ -14,12 +14,12 @@ int main() {
 
 	Cobalt::Camera cam(win.GetGLFWwindow(), size);
 
-	std::vector<Cobalt::GameObject*> objects;
+	Cobalt::ObjectCollection objects;
 
         //Make sure to have two folders, one for textures and another named "Shaders"("Shaders will have your vert.glsl and frag.glsl files in them)
-	objects.push_back(new Cobalt::GameObject("Rune", "Tex/Rune.png", FilteringMode::Nearest));
+	objects.Add(new Cobalt::GameObject("Rune", "Tex/Rune.png", FilteringMode::Nearest));
 
-	cam.SetMatrix(objects, size);
+	cam.SetMatrix(&objects, size);
 
 	while (!glfwWindowShouldClose(win.GetGLFWwindow()))
 	{
@@ -32,13 +32,10 @@ int main() {
 		// Update the projection matrix with the new window size
 		framebuffer_size_callback(win.GetGLFWwindow(), size.x, size.y);
 
-		cam.SetMatrix(objects, size);
+		cam.SetMatrix(&objects, size);
 
-		for (int i = 0; i < objects.size(); i++) 
-		{
-			objects[i]->Render();
-			objects[i]->Update();
-		}
+		objects.Render();
+		objects.Update()
 
 		cam.Update();
 
