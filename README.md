@@ -46,10 +46,6 @@ int main() {
 		glfwPollEvents();
 	}
 
-	for (int i = 0; i < objects.size(); i++) {
-		delete objects[i];
-	}
-
 	return 0;
 };
 ```
