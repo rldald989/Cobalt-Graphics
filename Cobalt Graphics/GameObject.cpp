@@ -1,7 +1,7 @@
 #include "GameObject.h"
 #include "pch.h"
 
-// Vertices
+// Vertices (Used for rendering the object)
 Vert vertices[] =
 {
     glm::vec3(-0.5f, 0.5f, 0.0f), glm::vec3(-0.5f, 0.5f, 0.0f), glm::vec2(0.f, 1.f),
@@ -13,7 +13,7 @@ Vert vertices[] =
 // Number of vertices
 unsigned nrOfVertices = sizeof(vertices) / sizeof(Vert); 
 
-// Indices
+// Indices (Used for rendering the object)
 GLuint indices[] =
 {
     0, 1, 2,

@@ -8,6 +8,9 @@
 #include "Buffers.h"
 #include <vector>
 
+// Avery why did you make me do this
+
+// Contains all of the information needed to render an object
 struct Vert {
 	glm::vec3 positions;
 	glm::vec3 color;
@@ -41,21 +44,26 @@ namespace Cobalt
 		/// Setter Functions
 		void SetBounds(glm::vec2 value);
 
+		// Sets the X position of the object
 		void SetX(float amount);
 
+		// Sets the Y position of the object
 		void SetY(float amount);
 
 		void SetTextureScale(float x, float y);
 
 		/// Getter Functions
 
+		// Gets the name of the object
 		inline std::string GetName() { return m_name; }
 
 		// Gets the shader
 		inline Shader* GetShader();
 
+		// Gets the position of the object
 		glm::vec3 GetPosition();
 
+		// Gets the bounds of the object
 		glm::vec3 GetBounds();
 
 		friend class Camera;
@@ -84,20 +92,32 @@ namespace Cobalt
 	class ObjectCollection
 	{
 	public:
+		// Initializes the Object Collection
 		ObjectCollection(const char* collection_name);
 		~ObjectCollection();
 
+		// Adds a game object to the object collection
 		void Add(GameObject* object);
 
+		// Returns the size of the Object Collection
 		int Size();
 
+		// Gets an object by name search
 		GameObject* GetObject(const char* name);
+
+		// Gets an object by index
 		GameObject* GetObject(int index);
 
+		// Removes an object by name search
 		void RemoveObject(const char* name);
+
+		// Removes an object by index
 		void RemoveObject(int index);
 
+		// Updates all of the objects
 		void Update();
+
+		// Renders all of the objects
 		void Render();
 
 		friend class Camera;

@@ -4,7 +4,7 @@
 float deltaTime = 0.0f;	// Time between current frame and last frame
 float lastFrame = 0.0f; // Time of last frame
 
-Cobalt::Camera::Camera(GLFWwindow* window, Vec2 size) : m_cam(1.0f)
+Cobalt::Camera::Camera(GLFWwindow* window, Vec2 size) : m_cam(1.0f), m_camPos(glm::vec3(0.f, 0.f, 0.0f))
 {
 	// Gets the framebuffer size from the window and size of the window
 	glfwGetFramebufferSize(window, &size.x, &size.y);

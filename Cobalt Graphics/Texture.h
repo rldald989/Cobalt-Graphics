@@ -6,6 +6,9 @@
 #include "Buffers.h"
 #include "Shader.h"
 
+// Avery why did you make me do this
+
+// Lets you set the filtering mode for teh texture
 enum FilteringMode
 {
 	Linear = GL_LINEAR,
@@ -18,10 +21,13 @@ namespace Cobalt
 	{
 		unsigned int texture;
 
+		// Loads the texture through a file path and sets the filtering mode of the texture
 		GLuint LoadTex(const char* filePath, FilteringMode ft);
 
+		// Binds the texture
 		void Bind(unsigned int tex);
 
+		// Unbinds the texture
 		void Unbind();
 	};
 }

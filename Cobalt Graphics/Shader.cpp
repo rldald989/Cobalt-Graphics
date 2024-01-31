@@ -118,13 +118,3 @@ void Cobalt::Shader::SetMat4(const char* name, glm::mat4 value, bool transpose)
 
 	Unuse();
 }
-
-// Sets the view for 3D
-void Cobalt::Shader::SetView(const char* name, glm::mat3 value, bool transpose)
-{
-	Use();
-
-	glUniformMatrix4fv(glGetUniformLocation(m_ID, name), 1, transpose, &value[0][0]);
-
-	Unuse();
-}

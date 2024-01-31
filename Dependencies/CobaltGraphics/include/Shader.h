@@ -8,39 +8,52 @@
 #include <iostream>
 #include <fstream>
 
+// Avery why did you make me do this
+
 namespace Cobalt
 {
 	class Shader
 	{
 	public:
+		// Initializes and loads the shader program
 		Shader(const char* vFile, const char* fFile);
 		~Shader();
 
+		// Uses the shader program (sort of like activating it so it can be used)
 		void Use();
 
+		// Unuses the shader program (sort of like de-activating it so it can't be used)
 		void Unuse();
 
+		// Deletes the shader program
 		void Delete();
 
+		// Gets the shader program
 		unsigned int GetProgram();
 
+		// Draws indexed triangles to the screen
 		void Draw(unsigned int nrOfIndices, unsigned int* indices);
 
+		// Sets an integer within the glsl shader code
 		void SetInt(const char* name, int value);
 
+		// Sets a float within the glsl shader code
 		void SetFloat(const char* name, float value);
 
+		// Sets a Vec2 within the glsl shader code
 		void SetVec2(const char* name, glm::fvec2);
 
+		// Sets a Vec3 within the glsl shader code
 		void SetVec3(const char* name, glm::fvec3);
 
+		// Sets a Vec4 within the glsl shader code
 		void SetVec4(const char* name, glm::fvec4);
 
+		// Sets a Mat3 within the glsl shader code
 		void SetMat3(const char* name, glm::mat3 value, bool transpose = GL_FALSE);
 
-		void SetMat4(const char* name, glm::mat4 value, bool transpose = GL_FALSE);
-
-		void SetView(const char* name, glm::mat3 value, bool transpose = GL_FALSE);
+		// Sets a Mat4 within the glsl shader code
+		void SetMat4(const char* name, glm::mat4 value, bool transpose = GL_FALSE);	
 
 	private:
 		unsigned int m_ID;
