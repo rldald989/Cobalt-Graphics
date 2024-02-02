@@ -35,7 +35,7 @@ int main() {
 		cam.SetMatrix(&objects, size);
 
 		objects.Render();
-		objects.Update()
+		objects.Update();
 
 		cam.Update();
 
