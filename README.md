@@ -14,12 +14,12 @@ int main() {
 
 	Cobalt::Camera cam(win.GetGLFWwindow(), size);
 
-	std::vector<Cobalt::GameObject*> objects;
+	Cobalt::ObjectCollection objects("Objects");
 
-  //Make sure to have two folders, one for textures and another named "Shaders"("Shaders will have your vert.glsl and frag.glsl files in them)
-	objects.push_back(new Cobalt::GameObject("Rune", "Tex/Rune.png", FilteringMode::Nearest));
+        //Make sure to have two folders, one for textures and another named "Shaders"("Shaders will have your vert.glsl and frag.glsl files in them)
+	objects.Add(new Cobalt::GameObject("Rune", "Tex/Rune.png", FilteringMode::Nearest));
 
-	cam.SetMatrix(objects, size);
+	cam.SetMatrix(&objects, size);
 
 	while (!glfwWindowShouldClose(win.GetGLFWwindow()))
 	{
@@ -32,15 +32,10 @@ int main() {
 		// Update the projection matrix with the new window size
 		framebuffer_size_callback(win.GetGLFWwindow(), size.x, size.y);
 
-		cam.SetMatrix(objects, size);
+		cam.SetMatrix(&objects, size);
 
-		for (int i = 0; i < objects.size(); i++) 
-		{
-			objects[i]->Render();
-			objects[i]->Update();
-		}
-
-		//cam.Move(player.obj->GetPosition().x, player.obj->GetPosition().y);
+		objects.Render();
+		objects.Update()
 
 		cam.Update();
 
@@ -51,11 +46,9 @@ int main() {
 		glfwPollEvents();
 	}
 
-	for (int i = 0; i < objects.size(); i++) {
-		delete objects[i];
-	}
-
 	return 0;
 };
 ```
 To get some of the required files, go to the <b>Extras</b> branch of this repository.
+For the dependencies, those being: GLFW, GLEW, GLM, and STBImage, can be found in the <b>Dependencies</b> directory.
+Make sure that your ```Additional Dependencies``` under ```Linker->Input``` have the following libraries: ```opengl32.lib```, ```glfw3.lib```, ```glew32.lib```, ```Cobalt Graphics.lib```.
