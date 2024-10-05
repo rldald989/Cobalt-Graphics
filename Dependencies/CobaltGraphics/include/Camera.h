@@ -20,16 +20,14 @@ namespace Cobalt
 	class Camera
 	{
 	public:
-		// Camera constructor
 		Camera(GLFWwindow* window, Vec2 size);
 
-		// Camera destructor
 		~Camera();
 
-		// Sets the matrix for one object
+		// Sets the matrix for one object so the object can be rendered to the screen properly
 		void SetMatrix(GameObject* object);
 
-		//Sets the matrix for multiple objects
+		//Sets the matrix for multiple objects so the objects can be rendered to the screen properly
 		void SetMatrix(ObjectCollection* objects, Vec2 size);
 
 		// Moves the camera on the x and y axis
@@ -37,8 +35,9 @@ namespace Cobalt
 
 		// Sets the position of the camera on the x and y axis (different from the Move impl)
 		void SetPosition(float x, float y);
+
+		glm::vec2 GetPosition();
 		
-		// Updates the camera
 		void Update();
 
 		// Allows you to use WASD to control the camera

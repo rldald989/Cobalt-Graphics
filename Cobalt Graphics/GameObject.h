@@ -19,6 +19,8 @@ struct Vert {
 
 namespace Cobalt
 {
+	static bool Logging;
+
 	class GameObject
 	{
 	public:
@@ -42,6 +44,11 @@ namespace Cobalt
 		void Scale(float x, float y);
 
 		/// Setter Functions
+
+		// Sets a custom shader
+		void SetShader(Shader* shader);
+
+		// Sets the collision bounds of the object
 		void SetBounds(glm::vec2 value);
 
 		// Sets the X position of the object
@@ -52,13 +59,14 @@ namespace Cobalt
 
 		void SetTextureScale(float x, float y);
 
+
 		/// Getter Functions
 
 		// Gets the name of the object
 		inline std::string GetName() { return m_name; }
 
 		// Gets the shader
-		inline Shader* GetShader();
+		Shader* GetShader();
 
 		// Gets the position of the object
 		glm::vec3 GetPosition();

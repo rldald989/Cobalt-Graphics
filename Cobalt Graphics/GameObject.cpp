@@ -1,7 +1,7 @@
 #include "GameObject.h"
 #include "pch.h"
 
-// Vertices (Used for rendering the object)
+// Vertices for a quad
 Vert vertices[] =
 {
     glm::vec3(-0.5f, 0.5f, 0.0f), glm::vec3(-0.5f, 0.5f, 0.0f), glm::vec2(0.f, 1.f),
@@ -10,17 +10,15 @@ Vert vertices[] =
     glm::vec3(0.5f, 0.5f, 0.0f), glm::vec3(-0.5f, 0.5f, 0.0f), glm::vec2(1.f, 1.f)
 };
 
-// Number of vertices
 unsigned nrOfVertices = sizeof(vertices) / sizeof(Vert); 
 
-// Indices (Used for rendering the object)
+// Indices for a quad
 GLuint indices[] =
 {
     0, 1, 2,
     2, 3, 0
 };
 
-// Number of indices
 unsigned nrOfIndices = sizeof(indices) / sizeof(GLuint);
 
 Cobalt::GameObject::GameObject(std::string name, const char* texFilePath, FilteringMode ft) : m_shader(new Shader("Shaders/vert.glsl", "Shaders/frag.glsl")), m_projection(1.0f), m_transform(1.0f), tex_scale(1.0f, 1.0f), m_name(name)
@@ -101,6 +99,11 @@ void Cobalt::GameObject::Scale(float x, float y)
     m_transform = glm::scale(m_transform, glm::vec3(x, y, 0.0f));
 }
 
+void Cobalt::GameObject::SetShader(Shader* shader)
+{
+    m_shader = shader;
+}
+
 void Cobalt::GameObject::SetBounds(glm::vec2 value)
 {
     m_bounds.x = m_bounds.x + value.x;
@@ -123,7 +126,7 @@ void Cobalt::GameObject::SetTextureScale(float x, float y)
     m_shader->SetVec2("tex_scale", tex_scale);
 }
 
-inline Cobalt::Shader* Cobalt::GameObject::GetShader()
+Cobalt::Shader* Cobalt::GameObject::GetShader()
 {
     // Returns the shader to be gotten and used
     return m_shader;
@@ -153,7 +156,9 @@ Cobalt::ObjectCollection::~ObjectCollection()
 void Cobalt::ObjectCollection::Add(GameObject* object)
 {
     m_objects.push_back(object);
-    std::cout << "Object " << object->GetName() << " added to " << m_collection_name << std::endl;
+    if (Logging) {
+        std::cout << "Object " << object->GetName() << " added to " << m_collection_name << std::endl;
+    }
 }
 
 Cobalt::GameObject* Cobalt::ObjectCollection::GetObject(const char* name)

@@ -52,6 +52,11 @@ void Cobalt::Camera::SetPosition(float x, float y)
 	m_cam[3][1] = y;
 }
 
+glm::vec2 Cobalt::Camera::GetPosition()
+{
+	return glm::vec2(m_cam[3][0], m_cam[3][1]);
+}
+
 void Cobalt::Camera::Update()
 {
 	// Updates the delta time
