@@ -42,6 +42,7 @@ Cobalt::GameObject::GameObject(std::string name, const char* texFilePath, Filter
 
     // Loads the texture into a variable i.e. m_texID, which is an unsigned int, this method here allows us to change the texture later on
     m_texID = new unsigned int(m_texture.LoadTex(texFilePath, ft));
+    m_shader->SetInt("texture1", 0);
 
     // Unbinds the Vertex Array Buffer(VAO), Vertex Buffer(VBO), and the Index Buffer(IBO)
     m_ibo.Unbind();
@@ -54,6 +55,9 @@ Cobalt::GameObject::GameObject(std::string name, const char* texFilePath, Filter
 // Delete anything that is loaded into memory
 Cobalt::GameObject::~GameObject()
 {
+    for (int i = 0; i < m_textures.size(); i++) {
+        delete m_textures[i].texID;
+    }
     //delete m_shader;
     delete m_texID;
 }
@@ -67,21 +71,23 @@ void Cobalt::GameObject::Render()
 {
     // Uses the shader
     m_shader->Use();
-
-    // Binds the texture for use so it can be seen on an object
+    glActiveTexture(GL_TEXTURE0);
     m_texture.Bind(*m_texID);
+    m_shader->SetInt("texture1", 0);
+
+    m_shader->Use();
+    for (int i = 0; i < m_textures.size(); i++) {
+        glActiveTexture(GL_TEXTURE0 + i+1);
+        m_textures[i].Bind(*m_textures[i].texID);
+        m_shader->SetInt(m_textures[i].name, i+1);
+        m_shader->Use();
+    }
 
     // Binds the VAO so the object's vertex data can be cycled through the buffer
     m_vao.Bind();
 
     // Does the actual rendering of the object
     m_shader->Draw(nrOfIndices, indices);
-
-    // Unbinds the texture
-    m_texture.Unbind();
-
-    // Unuses the shader
-    m_shader->Unuse();
 }
 
 void Cobalt::GameObject::Move(float x, float y) 
@@ -140,6 +146,24 @@ glm::vec3 Cobalt::GameObject::GetPosition()
 glm::vec3 Cobalt::GameObject::GetBounds()
 {
     return m_bounds;
+}
+
+void Cobalt::GameObject::AddTexture(const char* textureName, const char* texFilePath, FilteringMode ft, const ActiveTextureSlot& activeTextureSlot)
+{
+    DynamicTexture tempTexture = DynamicTexture();
+    tempTexture.texID = new unsigned int(m_texture.LoadTex(texFilePath, ft));
+    m_shader->SetInt(textureName, activeTextureSlot);
+    tempTexture.activeTextureSlot = activeTextureSlot;
+    tempTexture.name = textureName;
+    m_textures.push_back(tempTexture);
+    // Loads the texture into a variable i.e. the local texID, which is an unsigned int, this method here allows us to change the texture later on
+    
+}
+
+void Cobalt::GameObject::ProcessTextures()
+{
+    
+
 }
 
 Cobalt::ObjectCollection::ObjectCollection(const char* collection_name) : m_collection_name(collection_name)

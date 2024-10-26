@@ -74,6 +74,13 @@ namespace Cobalt
 		// Gets the bounds of the object
 		glm::vec3 GetBounds();
 
+		/// Misc.
+
+		//Adds textures
+		void AddTexture(const char* textureName, const char* texFilePath, FilteringMode ft, const ActiveTextureSlot& activeTextureSlot);
+
+		void ProcessTextures();
+
 		friend class Camera;
 
 	private:
@@ -88,6 +95,8 @@ namespace Cobalt
 		//Texture (Medium-Importance)
 		Texture m_texture;
 		unsigned int* m_texID;
+
+		std::vector<DynamicTexture> m_textures;
 
 		glm::mat4 m_projection;
 		glm::mat4 m_transform;

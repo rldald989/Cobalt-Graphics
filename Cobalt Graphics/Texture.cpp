@@ -23,10 +23,6 @@ GLuint Cobalt::Texture::LoadTex(const char* filePath, FilteringMode ft)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	}
 
-	// For textures with an alpha background
-	glEnable(GL_ALPHA_TEST);
-	glAlphaFunc(GL_GREATER, 0.5f);
-
 	// Load and generate the texture
 	int width, height, nrChannels;
 	unsigned char* data = stbi_load(filePath, &width, &height, &nrChannels, 0);

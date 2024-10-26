@@ -6,6 +6,8 @@ float lastFrame = 0.0f; // Time of last frame
 
 Cobalt::Camera::Camera(GLFWwindow* window, Vec2 size) : m_cam(1.0f), m_camPos(glm::vec3(0.f, 0.f, 0.0f))
 {
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	// Gets the framebuffer size from the window and size of the window
 	glfwGetFramebufferSize(window, &size.x, &size.y);
 	
